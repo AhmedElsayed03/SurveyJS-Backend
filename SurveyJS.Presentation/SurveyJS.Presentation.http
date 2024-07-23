@@ -1,0 +1,6 @@
+@SurveyJS.Presentation_HostAddress = http://localhost:5068
+
+GET {{SurveyJS.Presentation_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
