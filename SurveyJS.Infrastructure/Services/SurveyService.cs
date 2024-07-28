@@ -21,7 +21,7 @@ namespace SurveyJS.Infrastructure.Services
             _unitOfWork = unitOfWork;
         }
 
-        public async Task PostSurvey(SurveyAddDto newSurvey)
+        public async Task CreateSurvey(SurveyAddDto newSurvey)
         {
             //Survey JSON
             Survey survey = new Survey()
@@ -83,6 +83,55 @@ namespace SurveyJS.Infrastructure.Services
                 }
             }
 
+
+        }
+
+        public async Task<RenderSurveyDto> RenderSurvey(int id)
+        {
+            Survey? survey = await  _unitOfWork.SurveyRepo.GetByIdAsync(id);
+
+            RenderSurveyDto renderSurvey = new RenderSurveyDto
+            {
+                Title = survey!.Title,
+                Description = survey.Description
+            };
+
+            foreach (var p in renderSurvey.Pages)
+            {
+                PagewithElementsAddDto page = new PagewithElementsAddDto
+                {
+                    Name = p.Name,
+                    Title = p.Title,
+                    Description = p.Description
+                };
+
+
+                //Elements JSON
+                foreach (var e in p.Elements)
+                {
+                    ElementWithChoicesAddDto element = new ElementWithChoicesAddDto
+                    {
+                        Title = e.Title,
+                        Name = e.Name,
+                        Type = e.Type,
+                        IsRequired = e.IsRequired,
+                        VisibleIf = e.VisibleIf
+                    };
+
+
+                    //Choices JSON
+                    foreach (var c in e.Choices)
+                    {
+                        ChoiceAddDto choice = new ChoiceAddDto
+                        {
+                            Value = c.Value,
+                            Text = c.Text
+                        };
+                    }
+                }
+            }
+
+            return renderSurvey;
 
         }
     }

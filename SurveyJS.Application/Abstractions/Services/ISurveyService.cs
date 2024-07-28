@@ -9,6 +9,15 @@ namespace SurveyJS.Application.Abstractions.Services
 {
     public interface ISurveyService
     {
-        Task PostSurvey(SurveyAddDto newSurvey);
+        //Create Survey [Admin]
+        Task CreateSurvey(SurveyAddDto newSurvey);
+
+        //Get Survey [User]
+        Task<RenderSurveyDto> RenderSurvey(int id);
+        
+        //Submit Survey [User]
+
+
+        //Submit Survey [User]
     }
 }

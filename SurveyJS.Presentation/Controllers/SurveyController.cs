@@ -18,10 +18,17 @@ namespace SurveyJS.Presentation.Controllers
         }
 
         [HttpPost("create-survey")]
-        public async Task<NoContent> AddSurveyAsync(SurveyAddDto newSurvey)
+        public async Task<NoContent> CreateSurveyAsync(SurveyAddDto newSurvey)
         {
-            await _surveyService.PostSurvey(newSurvey);
+            await _surveyService.CreateSurvey(newSurvey);
             return TypedResults.NoContent();
+        }
+
+        [HttpGet("render-survey")]
+        public async Task<RenderSurveyDto> RenderSurveyAsync(int id)
+        {
+            RenderSurveyDto renderSurvey = await _surveyService.RenderSurvey(id);
+            return renderSurvey;
         }
     }
 }
