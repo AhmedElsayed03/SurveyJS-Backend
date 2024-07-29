@@ -13,6 +13,6 @@ namespace SurveyJS.Application.Abstractions.Models.DTOs
         public string Title { get; set; } = string.Empty;
         public bool IsRequired { get; set; } = false;
         public string VisibleIf { get; set; } = string.Empty;
-        public IEnumerable<ChoiceAddDto> Choices { get; set; } = new List<ChoiceAddDto>();
+        public List<ChoiceAddDto> Choices { get; set; } = new List<ChoiceAddDto>();
     }
 }

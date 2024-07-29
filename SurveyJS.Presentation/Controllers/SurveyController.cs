@@ -14,7 +14,7 @@ namespace SurveyJS.Presentation.Controllers
         private readonly ISurveyService _surveyService;
         public SurveyController(ISurveyService surveyService)
         {
-            _surveyService = surveyService;
+            _surveyService = surveyService; 
         }
 
         [HttpPost("create-survey")]
@@ -24,7 +24,7 @@ namespace SurveyJS.Presentation.Controllers
             return TypedResults.NoContent();
         }
 
-        [HttpGet("render-survey")]
+        [HttpGet("render-survey/{id}")]
         public async Task<RenderSurveyDto> RenderSurveyAsync(int id)
         {
             RenderSurveyDto renderSurvey = await _surveyService.RenderSurvey(id);

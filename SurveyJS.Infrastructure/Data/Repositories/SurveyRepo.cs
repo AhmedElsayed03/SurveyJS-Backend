@@ -19,6 +19,13 @@ namespace SurveyJS.Infrastructure.Data.Repositories
             _dbContext = context;
         }
 
-
+        public async Task<Survey?> GetAllDataByIdAsync(int id)
+        {
+            return await _dbContext.Surveys
+                                 .Include(s => s.Pages)
+                                 .ThenInclude(p => p.Elements)
+                                 .ThenInclude(e => e.Choices)
+                                 .FirstOrDefaultAsync(s => s.Id == id);
+        }
     }
 }

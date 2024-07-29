@@ -9,7 +9,7 @@ namespace SurveyJS.Application.Abstractions.Models.DTOs
     public class PagewithElementsAddDto
     {
         public string Name { get; set; } = string.Empty;
-        public IEnumerable<ElementWithChoicesAddDto> Elements { get; set; } = new List<ElementWithChoicesAddDto>();
+        public List<ElementWithChoicesAddDto> Elements { get; set; } = new List<ElementWithChoicesAddDto>();
         public string Title { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
     }

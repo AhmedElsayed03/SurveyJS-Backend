@@ -82,31 +82,39 @@ namespace SurveyJS.Infrastructure.Services
                     }
                 }
             }
-
-
         }
+
 
         public async Task<RenderSurveyDto> RenderSurvey(int id)
         {
-            Survey? survey = await  _unitOfWork.SurveyRepo.GetByIdAsync(id);
+            // Retrieve the survey by id
+            Survey? survey = await _unitOfWork.SurveyRepo.GetAllDataByIdAsync(id);
 
+            // Check if the survey exists
+            if (survey == null)
+            {
+                throw new Exception("Survey not found");
+            }
+
+            // Initialize the RenderSurveyDto object
             RenderSurveyDto renderSurvey = new RenderSurveyDto
             {
-                Title = survey!.Title,
-                Description = survey.Description
+                Title = survey.Title,
+                Description = survey.Description,
+                Pages = new List<PagewithElementsAddDto>()
             };
 
-            foreach (var p in renderSurvey.Pages)
+
+            foreach (var p in survey.Pages)
             {
                 PagewithElementsAddDto page = new PagewithElementsAddDto
                 {
                     Name = p.Name,
                     Title = p.Title,
-                    Description = p.Description
+                    Description = p.Description,
+                    Elements = new List<ElementWithChoicesAddDto>()
                 };
 
-
-                //Elements JSON
                 foreach (var e in p.Elements)
                 {
                     ElementWithChoicesAddDto element = new ElementWithChoicesAddDto
@@ -115,24 +123,30 @@ namespace SurveyJS.Infrastructure.Services
                         Name = e.Name,
                         Type = e.Type,
                         IsRequired = e.IsRequired,
-                        VisibleIf = e.VisibleIf
+                        VisibleIf = e.VisibleIf,
+                        Choices = new List<ChoiceAddDto>()
                     };
 
-
-                    //Choices JSON
                     foreach (var c in e.Choices)
                     {
+
                         ChoiceAddDto choice = new ChoiceAddDto
                         {
                             Value = c.Value,
                             Text = c.Text
                         };
+
+                        element.Choices.Add(choice);
                     }
+
+                    page.Elements.Add(element);
                 }
+
+                renderSurvey.Pages.Add(page);
             }
 
             return renderSurvey;
-
         }
+
     }
 }

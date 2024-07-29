@@ -9,6 +9,7 @@ namespace SurveyJS.Application.Abstractions.Repositories
 {
     public interface ISurveyRepo : IGenericRepo<Survey>
     {
+        Task<Survey?> GetAllDataByIdAsync(int id);
 
     }
 }
