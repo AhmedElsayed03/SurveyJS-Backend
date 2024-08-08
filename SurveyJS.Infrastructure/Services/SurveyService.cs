@@ -21,6 +21,7 @@ namespace SurveyJS.Infrastructure.Services
             _unitOfWork = unitOfWork;
         }
 
+        //Create New Survey [Post]
         public async Task CreateSurvey(SurveyAddDto newSurvey)
         {
             //Survey JSON
@@ -84,7 +85,7 @@ namespace SurveyJS.Infrastructure.Services
             }
         }
 
-
+        //Render Survey for user [Get]
         public async Task<RenderSurveyDto> RenderSurvey(int id)
         {
             // Retrieve the survey by id
@@ -147,6 +148,9 @@ namespace SurveyJS.Infrastructure.Services
 
             return renderSurvey;
         }
+
+        //Survey Submission from user [Post]
+        //public async Task SubmitSurvey() { }
 
     }
 }

@@ -142,6 +142,46 @@ namespace SurveyJS.Infrastructure.Migrations
                     b.ToTable("Pages");
                 });
 
+            modelBuilder.Entity("SurveyJS.Domain.Entities.Submission", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int?>("ChoiceId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ChoiceName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreateTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("CreatedBy")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("ElementId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ElementName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("UpdateTime")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ChoiceId");
+
+                    b.HasIndex("ElementId");
+
+                    b.ToTable("Submissions");
+                });
+
             modelBuilder.Entity("SurveyJS.Domain.Entities.Survey", b =>
                 {
                     b.Property<int>("Id")
@@ -205,9 +245,27 @@ namespace SurveyJS.Infrastructure.Migrations
                     b.Navigation("Survey");
                 });
 
+            modelBuilder.Entity("SurveyJS.Domain.Entities.Submission", b =>
+                {
+                    b.HasOne("SurveyJS.Domain.Entities.Choice", null)
+                        .WithMany("Submissions")
+                        .HasForeignKey("ChoiceId");
+
+                    b.HasOne("SurveyJS.Domain.Entities.Element", null)
+                        .WithMany("Submissions")
+                        .HasForeignKey("ElementId");
+                });
+
+            modelBuilder.Entity("SurveyJS.Domain.Entities.Choice", b =>
+                {
+                    b.Navigation("Submissions");
+                });
+
             modelBuilder.Entity("SurveyJS.Domain.Entities.Element", b =>
                 {
                     b.Navigation("Choices");
+
+                    b.Navigation("Submissions");
                 });
 
             modelBuilder.Entity("SurveyJS.Domain.Entities.Page", b =>

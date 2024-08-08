@@ -13,7 +13,7 @@ namespace SurveyJS.Application.Abstractions.UnitOfWork
         public IElementRepo ElementRepo { get; }
         public IChoiceRepo ChoiceRepo { get; }
         public IPageRepo PageRepo { get; }
-
+        public ISubmissionRepo SubmissionRepo { get; }
 
         Task<int> SaveChangesAsync();
     }

@@ -15,5 +15,6 @@ namespace SurveyJS.Domain.Entities
         //Nav Props
         public Element Element { get; set; } = null!;
         public int ElementId { get; set; }
+        public IEnumerable<Submission> Submissions { get; set; } = new List<Submission>();
     }
 }

@@ -104,6 +104,35 @@ namespace SurveyJS.Infrastructure.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Submissions",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ElementName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ChoiceName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ChoiceId = table.Column<int>(type: "int", nullable: true),
+                    ElementId = table.Column<int>(type: "int", nullable: true),
+                    CreateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    UpdateTime = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    CreatedBy = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Submissions", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Submissions_Choices_ChoiceId",
+                        column: x => x.ChoiceId,
+                        principalTable: "Choices",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Submissions_Elements_ElementId",
+                        column: x => x.ElementId,
+                        principalTable: "Elements",
+                        principalColumn: "Id");
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Choices_ElementId",
                 table: "Choices",
@@ -118,11 +147,24 @@ namespace SurveyJS.Infrastructure.Migrations
                 name: "IX_Pages_SurevyId",
                 table: "Pages",
                 column: "SurevyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Submissions_ChoiceId",
+                table: "Submissions",
+                column: "ChoiceId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Submissions_ElementId",
+                table: "Submissions",
+                column: "ElementId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Submissions");
+
             migrationBuilder.DropTable(
                 name: "Choices");
 

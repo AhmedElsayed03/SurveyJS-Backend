@@ -24,7 +24,6 @@ namespace SurveyJS.Presentation
             builder.Services.AddSwaggerGen();
 
 
-
             #region Context
             //string? ConnectionString = builder.Configuration.GetConnectionString("ConnectionString");
             string? ConnectionString = builder.Configuration.GetValue<string>("ConnectionString");
@@ -40,11 +39,13 @@ namespace SurveyJS.Presentation
             builder.Services.AddScoped<IPageRepo, PageRepo>();
             builder.Services.AddScoped<IChoiceRepo, ChoiceRepo>();
             builder.Services.AddScoped<IElementRepo, ElementRepo>();
+            builder.Services.AddScoped<ISubmissionRepo, SubmissionRepo>();
             #endregion
             
 
             #region Services
             builder.Services.AddScoped<ISurveyService, SurveyService>();
+            builder.Services.AddScoped<ISubmissionService, SubmissionService>();
             #endregion
 
 

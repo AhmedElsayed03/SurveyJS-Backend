@@ -14,7 +14,7 @@ namespace SurveyJS.Domain.Entities
         public bool IsRequired { get; set; }
         public string VisibleIf { get; set; } = string.Empty;
         public IEnumerable<Choice> Choices { get; set; } = new List<Choice>();
-
+        public IEnumerable<Submission> Submissions { get; set; } = new List<Submission>();
 
         //Nav Props
         public Page Page { get; set; } = null!;

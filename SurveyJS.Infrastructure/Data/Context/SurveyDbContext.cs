@@ -14,6 +14,7 @@ namespace SurveyJS.Infrastructure.Data.Context
         public DbSet<Element> Elements => Set<Element>();
         public DbSet<Choice> Choices => Set<Choice>();
         public DbSet<Page> Pages => Set<Page>();
+        public DbSet<Submission> Submissions => Set<Submission>();
 
         public SurveyDbContext(DbContextOptions<SurveyDbContext> options) : base(options)
         {
@@ -54,10 +55,29 @@ namespace SurveyJS.Infrastructure.Data.Context
                .WithOne(i => i.Element)
                .HasForeignKey(i => i.ElementId);
 
+            //builder.Entity<Element>()
+            //   .HasMany(i => i.Submissions)
+            //   .WithOne(i => i.Element)
+            //   .HasForeignKey(i => i.ElementId);
 
 
-            builder.Entity<Choice>()
-               .HasKey(i => i.Id);
+
+            //builder.Entity<Choice>()
+            //   .HasKey(i => i.Id);
+
+            //builder.Entity<Choice>()
+            //    .HasMany(i => i.Submissions)
+            //    .WithOne(i => i.Choice)
+            //    .HasForeignKey(i => i.ChoiceId);
+
+
+
+            builder.Entity<Submission>()
+                .HasKey(i => i.Id);
+
+
+
+
         }
     }
 }

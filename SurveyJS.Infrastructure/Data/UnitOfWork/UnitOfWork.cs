@@ -15,6 +15,7 @@ namespace SurveyJS.Infrastructure.Data.UnitOfWork
         public IElementRepo ElementRepo { get; }
         public IChoiceRepo ChoiceRepo { get; }
         public IPageRepo PageRepo { get; }
+        public ISubmissionRepo SubmissionRepo { get; }
 
 
         private readonly SurveyDbContext _context;
@@ -23,13 +24,15 @@ namespace SurveyJS.Infrastructure.Data.UnitOfWork
                           ISurveyRepo surveyRepo,
                           IElementRepo questionRepo,
                           IChoiceRepo choiceRepo,
-                          IPageRepo submissionRepo)
+                          IPageRepo pageRepo,
+                          ISubmissionRepo submissionRepo)
         {
             _context = context;
             SurveyRepo = surveyRepo;
             ElementRepo = questionRepo;
             ChoiceRepo = choiceRepo;
-            PageRepo = submissionRepo;
+            PageRepo = pageRepo;
+            SubmissionRepo = submissionRepo;
 
         }
 
